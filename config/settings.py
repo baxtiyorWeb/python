@@ -178,7 +178,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:3003",
     "https://yourfrontenddomain.com",  
-    "https://kzmh3xh6k3pfrmtpdzqu.lite.vusercontent.net"
+    "https://kzmh3xh6k3pfrmtpdzqu.lite.vusercontent.net",
+    "https://python-pvk0.onrender.com"
 ]
 
 CORS_ALLOW_ALL_ORIGINS = False  # Faqat yuqoridagi manzillarga ruxsat beriladi
