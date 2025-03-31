@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'rest_framework',
     'rest_framework_simplejwt',
     'django_filters',
@@ -50,21 +49,18 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'drf_yasg',
     'channels',
-
     'main_app'
-
-
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
+    'corsheaders.middleware.CorsMiddleware',  # CORS middleware qo‘shildi
+    'django.middleware.common.CommonMiddleware',  # Bu CORS ishlashi uchun kerak
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 
 ]
@@ -90,12 +86,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
-
-
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -103,9 +93,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'uzdev_db',
-        'USER': 'uzdev_admin',
-        'PASSWORD': 'ruxshona',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': '0000',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -160,11 +150,11 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
 
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        # 'rest_framework.authentication.BasicAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-
-    ]
+    
+]  
 }
 
 SIMPLE_JWT = {
@@ -182,3 +172,34 @@ DJOSER = {
     'SEND_ACTIVATION_EMAIL': True,
     'SERIALIZERS': {},
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3001",
+    "http://127.0.0.1:3000",
+    "http://localhost:3003",
+    "https://yourfrontenddomain.com",  
+    "https://kzmh3xh6k3pfrmtpdzqu.lite.vusercontent.net"
+]
+
+CORS_ALLOW_ALL_ORIGINS = False  # Faqat yuqoridagi manzillarga ruxsat beriladi
+CORS_ALLOW_METHODS = [
+    "GET",
+    "POST",
+    "PUT",
+    "DELETE",
+    "OPTIONS"
+]
+CORS_ALLOW_HEADERS = [
+    "content-type",
+    "authorization"
+]
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+
+# Agar frontendda credential'lar (cookie, authorization token) bo‘lsa:
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_ALL_ORIGINS = True
